@@ -149,6 +149,7 @@ The following diagrams are from the [NVIDIA Secure Agent Workspace OpenShift Vir
 3. `helm` 3.x installed
 4. An API key for at least one inference provider (Gemini, Anthropic, OpenAI, NVIDIA, OpenRouter)
 5. The `openshell` CLI installed ([releases](https://github.com/NVIDIA/OpenShell/releases))
+6. `openssl` and `virtctl` installed locally.
 
 Verify prerequisites:
 
