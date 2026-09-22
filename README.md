@@ -172,31 +172,21 @@ cd secure-agent-workspace
 # 2. Log in to OpenShift with cluster-admin
 oc login --server=https://api.<cluster>:6443 -u <user>
 
-# 3. Generate SSH keys for sandbox provisioning
-make generate-keys
+# 3. Configure secrets
+cp values-secret.yaml.template ~/values-secret-secure-agent-workspace.yaml
+# Edit ~/values-secret-secure-agent-workspace.yaml — set at least one provider API key and SSH keys
 
-# 4. Configure secrets
-cp values-secret.yaml.template ~/values-secret.yaml
-# Edit ~/values-secret.yaml — set at least one provider API key and SSH keys
-
-# 5. Copy pre-built images to the cluster (~5 min)
-# Mirrors images from quay.io/rh-ai-quickstart to the internal registry.
-# No build needed — images are pre-built by maintainers.
-make copy-images
-
-# 6. Deploy the pattern (runs inside the VP utility container)
+# 4. Deploy the pattern (runs inside the VP utility container)
 # NOTE: The deploying branch must exist on the remote (origin).
-# If deploying from a local-only branch, set TARGET_REVISION first:
-#   export TARGET_REVISION=main
 ./pattern.sh make install
 
-# 7. Authenticate and configure the CLI
+# 5. Authenticate and configure the CLI
 make login                    # Opens browser → login with alice / alice
 export OPENSHELL_SAW_NAME=openshell-saw
 make openshell-saw-configure-gateway
 openshell gateway login $OPENSHELL_SAW_NAME   # Authenticate CLI with gateway
 
-# 8. Verify
+# 6. Verify
 openshell sandbox list
 ```
 
