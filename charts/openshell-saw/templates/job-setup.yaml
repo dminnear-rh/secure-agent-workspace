@@ -19,7 +19,7 @@ spec:
         {{- include "openshell-sandbox.labels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "openshell-sandbox.fullname" . }}-setup
-      restartPolicy: OnFailure
+      restartPolicy: Never
       {{- if .Values.job.waitForSecrets }}
       initContainers:
         - name: wait-for-secrets
