@@ -15,7 +15,7 @@ VIRTCTL_URL="$(kubectl get ConsoleCLIDownload virtctl-clidownloads-kubevirt-hype
   -o jsonpath='{.spec.links[?(@.text=="Download virtctl for Linux for x86_64")].href}' 2>/dev/null || true)"
 if [[ -n "${VIRTCTL_URL}" ]]; then
   echo "  using cluster URL: ${VIRTCTL_URL}"
-  curl -fsSL "${VIRTCTL_URL}" | tar xz -C /usr/local/bin virtctl
+  curl -kfsSL "${VIRTCTL_URL}" | tar xz -C /usr/local/bin virtctl
 else
   echo "  ConsoleCLIDownload not found, falling back to GitHub ${VIRTCTL_VERSION}"
   curl -fsSL -o /usr/local/bin/virtctl \
