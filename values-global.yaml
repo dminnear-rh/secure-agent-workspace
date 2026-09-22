@@ -1,10 +1,9 @@
 global:
   pattern: secure-agent-workspace
   singleArgoCD: true
-  secretLoader:
-    disabled: false
+
 main:
-  clusterGroupName: prod
+  variant: prod
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: 0.9.*
