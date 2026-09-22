@@ -2,5 +2,5 @@
 # This Makefile includes the common pattern targets from Makefile-common
 # You can add custom targets above or below the include line
 
-include Makefile-common
 include Makefile-quickstart
+include Makefile-common

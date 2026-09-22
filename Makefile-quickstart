@@ -271,7 +271,7 @@ pre-uninstall:
 	$(MAKE) clean-stale-operators
 
 # Generate SSH keys, copy the pre-built images and install with the Validated Patterns framework
-install: generate-keys copy-images pattern-install
+install: generate-keys copy-images
 
 # Override Makefile-common's uninstall to handle missing pattern CR gracefully.
 # OLM cleanup runs AFTER rhvp.cluster_utils.uninstall removes the ArgoCD apps
