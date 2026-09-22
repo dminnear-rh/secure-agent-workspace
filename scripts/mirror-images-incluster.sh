@@ -22,8 +22,11 @@ for IMAGE in ${IMAGES}; do
   echo "Mirroring ${IMAGE}:${VERSION}..."
   oc delete job "mirror-${IMAGE}" -n "${BUILD_NS}" 2>/dev/null || true
   # Only substitute template vars; leave runtime shell vars (e.g. ${TOKEN}) intact
-  envsubst '${IMAGE} ${BUILD_NS} ${QUAY_REPO} ${VERSION}' \
-    < "${SCRIPTS_DIR}/mirror-images-job.yaml" \
+  sed -e "s|\${IMAGE}|${IMAGE}|g" \
+      -e "s|\${BUILD_NS}|${BUILD_NS}|g" \
+      -e "s|\${QUAY_REPO}|${QUAY_REPO}|g" \
+      -e "s|\${VERSION}|${VERSION}|g" \
+      "${SCRIPTS_DIR}/mirror-images-job.yaml" \
     | oc apply -n "${BUILD_NS}" -f -
   oc -n "${BUILD_NS}" wait --for=condition=complete \
     job/"mirror-${IMAGE}" --timeout=600s
