@@ -1,0 +1,29 @@
+clusterGroup:
+  imperative:
+    jobs:
+      - name: create-metal-machineset
+        playbook: rhvp.cluster_utils.create_machineset
+        verbosity: -vvv
+        extravars:
+          - max_machineset_count=1
+          - machineset_replicas=1
+          - ensure_two_machine_minimum=false
+    clusterRoleYaml:
+      - apiGroups:
+          - "*"
+        resources:
+          - machinesets
+          - persistentvolumeclaims
+          - datavolumes
+          - dataimportcrons
+          - datasources
+        verbs:
+          - "*"
+      - apiGroups:
+          - "*"
+        resources:
+          - "*"
+        verbs:
+          - get
+          - list
+          - watch
