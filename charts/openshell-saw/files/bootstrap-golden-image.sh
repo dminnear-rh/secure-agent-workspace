@@ -84,8 +84,6 @@ kind: DataVolume
 metadata:
   name: ${DV_NAME}
   namespace: ${NS}
-  annotations:
-    cdi.kubevirt.io/storage.bind.immediate.requested: "true"
 spec:
   sourceRef:
     kind: DataSource

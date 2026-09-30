@@ -10,8 +10,6 @@ spec:
   dataVolumeTemplates:
     - metadata:
         name: {{ include "openshell-sandbox.fullname" . }}-root
-        annotations:
-          cdi.kubevirt.io/storage.bind.immediate.requested: "true"
       spec:
         {{- if .Values.source.registryURL }}
         source:
