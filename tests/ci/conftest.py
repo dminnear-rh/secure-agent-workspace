@@ -1,7 +1,7 @@
 import os
 import sys
 
-# Make sibling helper modules (e.g. quickstart_scripts) importable from the test
+# Make sibling helper modules (e.g. script_runner) importable from the test
 # modules regardless of pytest's working directory / invocation path.
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
