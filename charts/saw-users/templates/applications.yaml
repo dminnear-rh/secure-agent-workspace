@@ -29,5 +29,12 @@
   "path" "charts/openshell-saw"
   "release" $user.name
   "values" (include "saw-users.openshellValues" (dict "root" $ "user" $user))
+  "ignoreDifferences" (list (dict
+    "group" "kubevirt.io"
+    "kind" "VirtualMachine"
+    "name" $user.name
+    "namespace" (printf "saw-%s" $user.name)
+    "jsonPointers" (list "/metadata/annotations/kubemacpool.io~1transaction-timestamp")
+  ))
 ) }}
 {{- end }}

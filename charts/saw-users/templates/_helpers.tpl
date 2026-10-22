@@ -292,4 +292,8 @@ spec:
     # hold 1 MiB.
     syncOptions:
       - ServerSideApply=true
+  {{- with .ignoreDifferences }}
+  ignoreDifferences:
+{{ . | toYaml | indent 4 }}
+  {{- end -}}
 {{- end -}}
