@@ -2,22 +2,33 @@
 # The normal prod values remain the base for this cluster group.
 clusterGroup:
   namespaces:
-    rhdh: null
-    rhdh-operator: null
-    saw-portal: null
-    redhat-ods-operator: null
+    rhdh:
+      disabled: true
+    rhdh-operator:
+      disabled: true
+    saw-portal:
+      disabled: true
+    redhat-ods-operator:
+      disabled: true
+
   subscriptions:
-    rhdh: null
-    openshift-pipelines: null
-    openshift-ai: null
+    rhdh:
+      disabled: true
+    openshift-pipelines:
+      disabled: true
+    openshift-ai:
+      disabled: true
+
   applications:
-    openshell-rhdh: null
+    openshell-rhdh:
+      disabled: true
     openshell-keycloak:
       extraValueFiles:
         - /overrides/keycloak-ci.yaml
     saw-users:
       extraValueFiles:
         - /overrides/saw-users-ci.yaml
+
   imperative:
     jobs:
       - name: saw-ingress-ca

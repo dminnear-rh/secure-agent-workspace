@@ -314,8 +314,8 @@ pre-uninstall: ## Drain GitOps writers, then delete owned VMs before framework u
 	@python3 $(SCRIPTS_DIR)/pattern-drain-applications.py
 	@$(SCRIPTS_DIR)/pattern-pre-uninstall.sh
 
-# Generate SSH keys before install. No deletions — safe to run repeatedly.
-pattern-install: ssh-key-generate
+# Run prereqs before pattern installation
+install: ssh-key-generate images-mirror check-oidc-ca
 
 # Handle a missing pattern CR without changing the framework install target.
 # OLM cleanup runs AFTER rhvp.cluster_utils.uninstall removes the ArgoCD apps
