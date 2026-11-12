@@ -1,8 +1,6 @@
 global:
   pattern: secure-agent-workspace
   singleArgoCD: true
-  secretLoader:
-    disabled: false
   # Turn off when Vault has no web-search key. Per-user webSearch.enabled wins.
   # Or install with: ./pattern.sh make install WEB_SEARCH_ENABLED=false
   webSearch:
@@ -18,7 +16,7 @@ global:
   governance:
     engine: interceptor
 main:
-  clusterGroupName: prod
+  variant: prod
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: 0.9.*

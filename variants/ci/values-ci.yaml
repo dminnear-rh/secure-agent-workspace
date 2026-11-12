@@ -1,0 +1,6 @@
+clusterGroup:
+  name: ci
+
+  sharedValueFiles:
+    - /variants/prod/values-prod.yaml
+    - /variants/ci/overrides/values-ci.yaml
