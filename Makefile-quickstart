@@ -111,7 +111,7 @@ endif
 
 .PHONY: prereqs-check quickstart-prereqs-check storage-class-check check-oidc-ca ssh-key-generate sandbox-build cli-build \
         gateway-build gateway-build-docker gateway-build-podman credential-proxy-build \
-        credential-proxy-pin credential-proxy-pin-check images-mirror \
+        credential-proxy-pin credential-proxy-pin-check images-mirror images-mirror-pattern \
         governance-interceptor-build governance-interceptor-build-local \
         keycloak-deploy keycloak-delete keycloak-check keycloak-issuer \
         keycloak-register keycloak-redirects keycloak-redirects-sync \
@@ -286,6 +286,10 @@ credential-proxy-build: ## Build the credential proxy image in-cluster (BUILD_NS
 images-mirror: ## Mirror prebuilt images from GHCR to the internal registry
 	@$(SCRIPTS_DIR)/images-mirror.sh
 
+images-mirror-pattern: ## Mirror prebuilt images using in-cluster Jobs (supports kubeconfig logins)
+	@oc create namespace "$(BUILD_NS)" --dry-run=client -o yaml | oc apply -f -
+	@IMAGES="$(MIRROR_IMAGES)" $(SCRIPTS_DIR)/mirror-images-incluster.sh
+
 ##@ Pattern Lifecycle
 
 # Clean stale operator CRDs from a previous install that block reinstallation.
@@ -305,7 +309,7 @@ pre-uninstall: ## Delete pattern VMs before framework uninstall
 	@$(SCRIPTS_DIR)/pattern-pre-uninstall.sh
 
 # Run prereqs before pattern installation
-install: ssh-key-generate images-mirror check-oidc-ca
+install: ssh-key-generate images-mirror-pattern
 
 # Handle a missing pattern CR without changing the framework install target.
 # OLM cleanup runs AFTER rhvp.cluster_utils.uninstall removes the ArgoCD apps
