@@ -39,10 +39,12 @@ for IMAGE in "${images[@]}"; do
   echo "Mirroring ${IMAGE}:${VERSION}..."
   oc delete job "mirror-${IMAGE}" -n "${BUILD_NS}" --ignore-not-found=true
   # Only substitute template vars; leave runtime shell vars (e.g. ${TOKEN}) intact
-  # shellcheck disable=SC2016
-  envsubst '${IMAGE} ${BUILD_NS} ${IMAGE_REPO} ${VERSION}' \
-    < "${SCRIPTS_DIR}/mirror-images-job.yaml" \
-    | oc apply -n "${BUILD_NS}" -f -
+  manifest="$(< "${SCRIPTS_DIR}/mirror-images-job.yaml")"
+  manifest="${manifest//\$\{IMAGE\}/${IMAGE}}"
+  manifest="${manifest//\$\{BUILD_NS\}/${BUILD_NS}}"
+  manifest="${manifest//\$\{IMAGE_REPO\}/${IMAGE_REPO}}"
+  manifest="${manifest//\$\{VERSION\}/${VERSION}}"
+  printf '%s\n' "${manifest}" | oc apply -n "${BUILD_NS}" -f -
   # `oc wait --for=condition=complete` would sit out its timeout on a failed Job.
   deadline=$(( $(date +%s) + 900 ))
   while :; do
