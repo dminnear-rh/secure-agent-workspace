@@ -3,4 +3,5 @@ clusterGroup:
 
   sharedValueFiles:
     - /variants/prod/values-prod.yaml
-    - /variants/ci/overrides/values-ci.yaml
+    - /variants/ci/overrides/ci.yaml
+    - /variants/ci/overrides/vp-ci.yaml
