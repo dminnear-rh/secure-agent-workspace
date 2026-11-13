@@ -1,0 +1,5 @@
+clusterGroup:
+  applications:
+    saw-users:
+      extraValueFiles:
+        - /variants/ci/overrides/saw-users-vp-ci.yaml

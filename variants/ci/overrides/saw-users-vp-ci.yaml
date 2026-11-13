@@ -1,0 +1,26 @@
+pruneOnRemove: true
+
+users:
+  - name: ciowner
+    profiles: [ci-nvidia]
+    pruneOnRemove: true
+  - name: cisecond
+    profiles: [ci-nvidia]
+    pruneOnRemove: true
+
+defaults:
+  openshellSaw:
+    networkPolicy:
+      clusterNetworkCIDRs:
+        - 10.128.0.0/14
+      serviceNetworkCIDRs:
+        - 172.30.0.0/16
+    cleanupApi:
+      serviceIP: 172.30.0.1
+      endpoints:
+        - ip: 10.0.11.239
+          port: 6443
+        - ip: 10.0.41.138
+          port: 6443
+        - ip: 10.0.66.61
+          port: 6443
